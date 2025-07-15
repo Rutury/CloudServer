@@ -5,6 +5,6 @@
 
 ## Запуск
 
-```bash go run main.go```
+<pre> ```bash go run main.go``` </pre>
 
 Сервер стартует на http://localhost:5000, изменить порт можно в main.go.
