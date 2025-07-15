@@ -26,6 +26,9 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	saveDir := filepath.Join("static", "cloud")
+	os.MkdirAll(saveDir, os.ModePerm)
+
 	uploaded := 0
 	for _, fileHeader := range files {
 		file, err := fileHeader.Open()
@@ -33,8 +36,6 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 		defer file.Close()
-		saveDir := filepath.Join("static", "cloud")
-		os.MkdirAll(saveDir, os.ModePerm)
 		dstPath := filepath.Join(saveDir, fileHeader.Filename)
 		dst, err := os.Create(dstPath)
 		if err != nil {

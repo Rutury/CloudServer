@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"net/http"
 	"os"
+	"path/filepath"
 )
 
 func SiteHandler(w http.ResponseWriter, r *http.Request) {
@@ -18,8 +19,10 @@ func SiteHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	dir := "./static/cloud"
-	entries, err := os.ReadDir(dir)
+	saveDir := filepath.Join("static", "cloud")
+	os.MkdirAll(saveDir, os.ModePerm)
+
+	entries, err := os.ReadDir(saveDir)
 	if err != nil {
 		http.Error(w, "Read error", http.StatusInternalServerError)
 		return

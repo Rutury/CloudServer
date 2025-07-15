@@ -19,10 +19,14 @@ func DeleteHandler(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
+
+	saveDir := filepath.Join("static", "cloud")
+	os.MkdirAll(saveDir, os.ModePerm)
+
 	deleted := 0
 	for _, relPath := range paths {
-		fullPath := filepath.Join("static/cloud", relPath)
-		if !filepathHasPrefix(fullPath, "static/cloud") {
+		fullPath := filepath.Join(saveDir, relPath)
+		if !filepathHasPrefix(fullPath, saveDir) {
 			continue
 		}
 
