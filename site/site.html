@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Облако</title>
+    <link rel="stylesheet" href="/site/style.css">
+</head>
+
+
+    <body><h2>Загрузить файл</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="files" multiple required>
+        <button type="submit">Загрузить</button>
+    </form>
+
+
+    <h1>Хранилище</h1>
+    <div class="message">Последнее действие: {{.Msg}}</div>
+    <ul class="file-list">
+    {{range .Files}}
+        <li class="file-item">
+            <a href="/cloud/{{.Name}}" class="file-name">{{.Name}}</a>
+            <span class="upload-time">{{.UploadTime}}</span>
+            <div class="file-actions">
+                <a href="/cloud/{{.Name}}" download class="button download-button">📥 Скачать</a>
+                <form action="/delete" method="post" style="display:inline;">
+                    <input type="hidden" name="paths" value="{{.Name}}">
+                    <button class="button delete-button" onclick="return confirm('Удалить файл?\n\n {{.Name}}')">🗑️ Удалить</button>
+                </form>
+            </div>
+        </li>
+    {{end}}
+    </ul>
+</body>
+</html>
